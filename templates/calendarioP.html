@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load staticfiles %}
+{% load scheduletags  i18n %}
+
+{% block head_title%}
+Home
+    {% endblock %}
+
+{% block content %}
+    <header >
+      <h2>{{ calendar.name}}!</h1>
+    </header>
+    <div class="6u 12u$(medium)">
+      <a class="button" href="{% url "week_calendar" calendar.slug %}{% querystring_for_date period.start 3 %}">
+      {% trans "Week" %}
+    </a>
+    <a class="button" href="{% url "month_calendar" calendar.slug %}{% querystring_for_date period.start 2 %}">
+      {% trans "Month" %}
+    </a>
+    <a class="button" href="{% url "year_calendar" calendar.slug %}{% querystring_for_date period.start 1 %}">
+      {% trans "Year" %}
+    </a>
+    </div>
+    {% include "schedule/_dialogs.html" %}
+    <div class="row 200%">
+      <div class="6u 12u$(medium)">
+        <h3>Estas son las actividades de tu calendario <strong>personal</strong:></h3>
+        <h4><strong>{% prevnext "dayv" calendar period "l, F d, Y" %}</strong></h4>
+        <div class="now">
+          <a class="button" href="{% url "personal" %}">
+            {% trans "Today" %}
+          </a>
+        </div>
+      </div>
+    </div>
+      <div class="row row-centered">
+        <div>
+          {% daily_table period %}
+        </div>
+    </div>
+
+
+    {% endblock %}

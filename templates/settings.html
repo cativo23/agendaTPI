@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <header  class="main">
+      <h1>Modifica tus datos {{ request.user.get_full_name}}!</h1>
+    </header>
+    <h2>Informacion basica</h2>
+    <form method="post">
+      {% csrf_token %}
+      {% csrf_token %}
+      {% for field in form %}
+         {{ field.label_tag }}<br>
+      {% if field.help_text %}
+        <small style="color: grey">{{ field.help_text|safe }}</small>
+      {% endif %}
+      {{ field }}
+          {% for error in field.errors %}
+              <div class="alert alert-danger">
+                  <strong>{{ error|escape }}</strong>
+              </div>
+          {% endfor %}
+      {% endfor %}
+      {% for error in form.non_field_errors %}
+          <div class="alert alert-danger">
+              <strong>{{ error|escape }}</strong>
+          </div>
+      {% endfor %}
+      <button class="button special big" type="submit">Modificar</button>
+    </form>
+    <h2>Facebook</h2>
+    {% if facebook_login %}
+    <p>Conectado como <a href="https://facebook.com/{{ facebook_login.extra_data.id }}/" target="_blank">{{ facebook_login}}</a></p>
+    {% if can_disconnect %}
+    <form method="post" action="{% url 'social:disconnect' 'facebook' %}?next={{ request.path }}">
+      {% csrf_token %}
+      <button class="special" type="submit">Desconectar de Facebook</button>
+    </form>
+    {% else %}
+    <button  class="special" type="button" disabled>Desconectar de Facebook</button>
+    <p style="color: red">Debes <a href="{% url 'password' %}">establecer una contraseña</a> para tu cuenta antes de desconectarte de Facebook.</p>
+    {% endif %}
+    {% else %}
+    <p><ul class="actions">
+      <li><a class="button special big" href="{% url 'social:begin' 'facebook' %}?next={{ request.path }}">Conectar a Facebook</a></li>
+    </ul></p>
+    {% endif %}
+
+{% endblock %}

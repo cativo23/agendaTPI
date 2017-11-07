@@ -1,0 +1,105 @@
+{% load static %}
+{% load staticfiles %}
+{% load i18n %}
+<!DOCTYPE HTML>
+
+<html>
+<head>
+	<title>{% if site_name %}{{ site_name }} : {% endif %}{% block head_title %}{% endblock %}</title>
+	<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
+		<link rel="stylesheet" href="{% static 'css/mais.css' %}" />
+		<!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
+	 <link rel="stylesheet" href="{% static "bootstrap/dist/css/bootstrap.css" %}" type="text/css" media="screen">
+	 <link rel="stylesheet" href="{% static 'location_field/leaflet.css' %}" type="text/css" media="screen">
+		<link rel="stylesheet" href="{% static "jquery-ui/themes/base/all.css" %}" type="text/css" media="screen">
+		{% block extra_head %}
+		{% endblock %}
+</head>
+<body>
+	<div id="wrapper">
+		<div id="main">
+			<div class="inner">
+
+			<!-- Header-->
+				<header id="header">
+					<a href="{% url 'home' %}" class="logo"><strong>Agenda</strong> by Swag</a>
+					{% if user.is_authenticated %} <p>User: {{ user.username }} </p>{% endif %}
+					<ul class="icons">
+						<li><a href="#" class="icon fa-twitter"><span class="label">Twitter</span></a></li>
+						<li><a href="#" class="icon fa-facebook"><span class="label">Facebook</span></a></li>
+						<li><a href="#" class="icon fa-snapchat-ghost"><span class="label">Snapchat</span></a></li>
+						<li><a href="#" class="icon fa-instagram"><span class="label">Instagram</span></a></li>
+						<li><a href="#" class="icon fa-medium"><span class="label">Medium</span></a></li>
+					</ul>
+				</header>
+				<section>
+					{% block content%}
+					{% endblock %}
+					{% block body%}
+					{% endblock %}
+				</section>
+			</div>
+		</div>
+
+		<div id="sidebar">
+			<div class="inner">
+				<!-- Search -->
+					<section id="search" class="alt">
+						<form method="post" action="#">
+							{% csrf_token %}
+							<input type="text" name="query" id="query" placeholder="Search" />
+						</form>
+					</section>
+				<!-- Menu -->
+					<nav id="menu">
+						<header class="major">
+							<h2>Menu</h2>
+						</header>
+						{% if user.is_authenticated %}
+						<ul>
+							<li class="current">  <img  width="50" height="50" src = "{% if user.avatar %}{{ user.avatar.url}} {% endif %}"></li>
+							<li class="current"><a href="/">Home</a></li>
+							<li> <span class="opener"><a href="{% url 'settings' %}">Configuración</a></span>
+								<ul>
+									<li><a href="{% url 'password' %}">Cambiar contraseña</a> </li>
+								</ul>
+							</li>
+							<li><a href="{% url 'logout' %}">Cerrar sesión</a></li>
+							<li><a href="{% url 'personal' %}">Calendario Personal</a></li>
+							{% if user.is_admin %}
+							<li><a href="/superadmin/">Admin</a></li>
+							{% endif %}
+						</ul>
+						{% else %}
+					 	<ul>
+						 <li><a href="{% url 'login' %}">Iniciar sesión</a></li>
+						 <li><a href="{% url 'signup' %}">Registrase</a></li>
+					 </ul>
+					{% endif %}
+					</nav>
+				<!-- Footer -->
+					<footer id="footer">
+						<p class="copyright">&copy; Untitled. All rights reserved. Demo Images: <a href="https://unsplash.com">Unsplash</a>. Design: <a href="https://html5up.net">HTML5 UP</a>.</p>
+					</footer>
+			</div>
+		</div>
+	</div>
+
+<script type="text/javascript" src="{% static 'js/jquery.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'location_field/js/form.js' %}"></script>
+<script type="text/javascript" src="{% static 'location_field/js/jquery.livequery.js' %}"></script>
+<script type="text/javascript" src="{% static 'location_field/l.control.geosearch.js' %}"></script>
+<script type="text/javascript" src="{% static 'location_field/l.geosearch.provider.google.js' %}"></script>
+<script type="text/javascript" src="{% static 'location_field/leaflet-google.js' %}"></script>
+<script type="text/javascript" src="{% static 'location_field/leaflet.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/skel.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/util.js' %}"></script>
+<script type="text/javascript" src="{% static 'jquery-ui/jquery-ui.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'bootstrap/dist/js/bootstrap.js' %}"></script>
+<script type="text/javascript" src="{% static 'schedule.js' %}"></script>
+<!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
+<script type="text/javascript" src="{% static 'js/main.js' %}"></script>
+</body>
+</html>

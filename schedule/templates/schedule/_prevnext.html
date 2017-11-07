@@ -1,0 +1,6 @@
+{% load scheduletags staticfiles %}
+<div class="row row-centered">
+    {% prev_url target calendar period %}
+   <div><h4>Estas  viendo el dia <strong>{{period_name}}</strong></h4></div>
+    {% next_url target calendar period %}
+</div>
