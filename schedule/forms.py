@@ -27,8 +27,6 @@ class EventForm(SpanForm):
     end_recurring_period = forms.DateTimeField(label=_("End recurring period"),
                                                help_text=_("This date is ignored for one time only events."),
                                                required=False)
-    city = forms.CharField()
-    location = PlainLocationField(based_fields=['city'], zoom=10)
 
     class Meta(object):
         model = Event

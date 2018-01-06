@@ -23,7 +23,7 @@ def signup(request):
                 password=form.cleaned_data.get('password1')
             )
             login(request, user)
-            temp = Calendar.objects.get_or_create_calendar_for_object(user, name= user.username + "'s Calendar'")
+            temp = Calendar.objects.get_or_create_calendar_for_object(user, name= user.username + "'s Calendar'", distinction='owner')
             user.calendarioUser = temp
             user.save()
             return redirect('home')

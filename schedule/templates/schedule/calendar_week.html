@@ -5,25 +5,23 @@
 
 {% include "schedule/_dialogs.html" %}
 
-<div class="row row-centered">
-  <a href="{% url "month_calendar" calendar.slug %}{% querystring_for_date period.start 2 %}">
-    {% trans "Month" %}
-  </a>
-  <a href="{% url "year_calendar" calendar.slug %}{% querystring_for_date period.start 1 %}">
-    {% trans "Year" %}
-  </a>
-</div>
 
-<div class="row row-centered">
-    <div>{{ calendar.name }}</div>
-    {% prevnext "week_calendar" calendar period "\W\e\ek W, M Y" %}
+
+
+<header >
+  <h2>Hola {{ request.user.get_full_name}}!</h1>
+</header>
+<div class="row 200%">
+  <div class="6u 12u$(medium)">
+    <h3>Estas son tus actividades para el <strong>{{ calendar.name }}</strong:></h3>
+    <h4><strong>{% prevnext "week_calendar" calendar period "\W\e\ek W, M Y" %}</strong></h4>
     <div class="now">
-      <a href="{% url "week_calendar" calendar.slug %}">
+      <a class="button" href="{% url "week_calendar" calendar.slug %}">
         {% trans "This week" %}
       </a>
     </div>
+  </div>
 </div>
-
 <div class="row row-centered">
   {% for day in period.get_days %}
     <div class="col-md-3">

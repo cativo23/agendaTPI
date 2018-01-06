@@ -10,11 +10,13 @@
     </td>
     <td class="col-md-4">
       {% for occ in slot.occurrences %}
-      <button type="button"  class="btn {% if occ.cancelled %} btn-danger {%else%} btn-primary {% endif %}" data-toggle="modal" data-target="#{% hash_occurrence occ %}" {% if occ.event.color_event %} style="background-color: {{occ.event.color_event}};border-color:{{occ.event.color_event}}" {% endif %}>
-                  {% options occ %}
+      <a href="/schedule/event/{{occ.event.id}}"><button   class="btn {% if occ.cancelled %} btn-danger {%else%} btn-primary {% endif %}" data-toggle="modal" data-target="#{% hash_occurrence occ %}" {% if occ.event.color_event %} style="background-color: {{occ.event.color_event}};border-color:{{occ.event.color_event}}" {% endif %}>
                   {% title occ %}
-            </button>
-      {% include 'schedule/_detail.html' with occurrence=occ %}
+      </button></a>
+                  <br>
+                  {% options occ %}
+
+
       {% endfor %}
     </td>
   </tr>

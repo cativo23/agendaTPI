@@ -202,7 +202,7 @@ def prev_url(target, calendar, period):
     if delta.total_seconds() > SCHEDULER_PREVNEXT_LIMIT_SECONDS:
         return ''
 
-    return mark_safe('<a href="%s%s"><span class="glyphicon glyphicon-circle-arrow-left"></span></a>' % (
+    return mark_safe('<a href="%s%s"><span class="glyphicon glyphicon-circle-arrow-left"><</span></a>' % (
         reverse(target, kwargs={'calendar_slug': slug}),
         querystring_for_date(period.prev().start)))
 
@@ -216,7 +216,7 @@ def next_url(target, calendar, period):
     if delta.total_seconds() > SCHEDULER_PREVNEXT_LIMIT_SECONDS:
         return ''
 
-    return mark_safe('<a href="%s%s"><span class="glyphicon glyphicon-circle-arrow-right"></span></a>' % (
+    return mark_safe('<a href="%s%s"><span class="glyphicon glyphicon-circle-arrow-right">></span></a>' % (
         reverse(target, kwargs={'calendar_slug': slug}),
         querystring_for_date(period.next().start)))
 

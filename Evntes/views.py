@@ -41,12 +41,13 @@ class CalendarByPeriodView(CalendarMixin, DetailView):
         context = super(CalendarByPeriodView, self).get_context_data(**kwargs)
         context['site_name'] = settings.SITE_NAME
         depuser = self.request.user.departament
-        if (depuser is None)and(not self.request.user.has_perm):
+        if (depuser is None):
+            print(depuser)
             return redirect('logout')
         else:
             if self.request.user.is_admin:
                 # print(self.request.user.is_admin)
-                calendar = Calendar.objects.get(name='default')
+                calendar = Calendar.objects.get(name='root')
             else:
                 # print(self.request.user.is_admin)
                 calendar = Calendar.objects.get(id=depuser.calendario.id)
@@ -81,12 +82,14 @@ class CalendarByPeriodView(CalendarMixin, DetailView):
 def HomeView(request):
     depuser = request.user.departament
 
-    if (depuser is None)and(not request.user.has_perm):
+    if (depuser is None):
         return redirect('logout')
     else:
-        if request.user.is_staff:
-            calendar = Calendar.objects.get(name='default')
+        if request.user.is_admin:
+            # print(self.request.user.is_admin)
+            calendar = Calendar.objects.get(name='root')
         else:
+            # print(self.request.user.is_admin)
             calendar = Calendar.objects.get(id=depuser.calendario.id)
     period_class = Day
     try:
@@ -117,7 +120,7 @@ def HomeView(request):
 @login_required
 def DailyV(request):
     depuser = request.user.departament
-    if (depuser is None)and(not request.user.has_perm):
+    if (depuser is None):
         return redirect('logout')
     else:
         if request.user.is_staff:
@@ -152,13 +155,13 @@ def DailyV(request):
 @login_required
 def CalendarioP(request):
     calendU = request.user.calendarioUser
-    if (calendU is None)and(not request.user.has_perm):
+    if (calendU is None):
         return redirect('logout')
     else:
         if request.user.is_staff:
-            calendar = Calendar.objects.get(name='default')
+            calendar = Calendar.objects.get(name='root')
         else:
-            calendar = Calendar.objects.get(id= calendU.id)
+            calendar = Calendar.objects.get(id=calendU.id)
     period_class = Day
     try:
         date = coerce_date_dict(request.GET)

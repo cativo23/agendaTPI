@@ -6,16 +6,16 @@
   {% if occurrence.event.rule %}
     {% if occurrence.id %}
         <a href="#" onclick="openURL('{{ edit_occurrence }}?next={{ here }}', event);">
-          <span class="glyphicon glyphicon-pencil"></span>
+          <span class="glyphicon glyphicon-pencil">                                Abrir</span>
         </a>
     {% else %}
         <a href="#" onclick="openEditDialog(this, '{{ edit_occurrence }}?next={{ here }}', '{{ edit_event }}?next={{ here }}', event);">
-          <span class="glyphicon glyphicon-pencil"></span>
+          <span class="glyphicon glyphicon-pencil"> &nbsp;                             Editar &nbsp;</span>
         </a>
     {% endif %}
   {% else %}
     <a href="#" onclick="openURL('{{ edit_event }}?next={{ here }}', event);">
-        <span class="glyphicon glyphicon-pencil"></span>
+        <span class="glyphicon glyphicon-pencil"> &nbsp;                              Editar &nbsp;</span>
     </a>
   {% endif %}
   </span>
@@ -26,16 +26,16 @@
   {% if occurrence.event.rule %}
     {% if occurrence.id %}
         <a href="#" onclick="openURL('{{cancel_occurrence}}?next={{here}}', event);">
-          <span class="glyphicon glyphicon-remove"></span>
+          <span class="glyphicon glyphicon-remove">&nbsp;                      Remover  &nbsp;</span>
         </a>
     {% else %}
         <a href="#" onclick="openCancelDialog(this, '{{ cancel_occurrence }}?next={{here}}', '{{delete_event}}?next={{here}}', event);">
-          <span class="glyphicon glyphicon-remove"></span>
+          <span class="glyphicon glyphicon-remove"> &nbsp;                      Cancelar &nbsp;</span>
         </a>
     {% endif %}
   {% else %}
     <a href="#" onclick="openURL('{{delete_event}}?next={{here}}', event);">
-      <span class="glyphicon glyphicon-remove"></span>
+      <span class="glyphicon glyphicon-remove">&nbsp;                     Remover  &nbsp;</span>
     </a>
   {% endif %}
 </span>

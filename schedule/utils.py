@@ -179,8 +179,7 @@ def check_event_permissions(function):
             return HttpResponseRedirect(settings.LOGIN_URL)
         occurrence, event, calendar = get_objects(request, *args, **kwargs)
         if calendar:
-            allowed = (CHECK_EVENT_PERM_FUNC(event, user) and
-                       CHECK_CALENDAR_PERM_FUNC(calendar, user))
+            allowed = (CHECK_CALENDAR_PERM_FUNC(calendar, user) and CHECK_CALENDAR_PERM_FUNC(calendar, user))
             if not allowed:
                 return HttpResponseRedirect(settings.LOGIN_URL)
             # all checks passed

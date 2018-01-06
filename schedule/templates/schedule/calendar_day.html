@@ -4,25 +4,28 @@
 {% block body %}
 
 {% include "schedule/_dialogs.html" %}
-<div class="row row-centered">
-  <a class="btn btn-primary gradient" href="{% url "week_calendar" calendar.slug %}{% querystring_for_date period.start 3 %}">
-    {% trans "Week" %}
-  </a>
-  <a class="btn btn-primary gradient" href="{% url "month_calendar" calendar.slug %}{% querystring_for_date period.start 2 %}">
-    {% trans "Month" %}
-  </a>
-  <a class="btn btn-primary gradient" href="{% url "year_calendar" calendar.slug %}{% querystring_for_date period.start 1 %}">
-    {% trans "Year" %}
-  </a>
+<header >
+  <h2>Hola {{ request.user.get_full_name}}!</h1>
+</header>
+<div class="6u 12u$(medium)">
+  <a class="button" href="{% url "week_calendar" calendar.slug %}{% querystring_for_date period.start 3 %}">
+  {% trans "Week" %}
+</a>
+<a class="button" href="{% url "month_calendar" calendar.slug %}{% querystring_for_date period.start 2 %}">
+  {% trans "Month" %}
+</a>
 </div>
-<div class="row row-centered">
-    <h1>{{ calendar.name }}</h1>
-    {% prevnext "day_calendar" calendar period "l, F d, Y" %}
+{% include "schedule/_dialogs.html" %}
+<div class="row 200%">
+  <div class="6u 12u$(medium)">
+    <h3>Estas son tus actividades para el <strong>{{ calendar.name }}</strong:></h3>
+    <h4><strong>{% prevnext "dayv" calendar period "l, F d, Y" %}</strong></h4>
     <div class="now">
-      <a class="btn btn-primary gradient" href="{% url "day_calendar" calendar.slug %}">
+      <a class="button" href="{% url "home" %}">
         {% trans "Today" %}
       </a>
     </div>
+  </div>
 </div>
   <div class="row row-centered">
     <div>

@@ -7,6 +7,6 @@
 
 <form action="" method="post">{% csrf_token %}
     <input type="submit" value="Confirm">
-    <input type="submit" name="cancel" value="Cancel">
+    <a href="{{ request.GET.next}}" class="button" name="next">Cancel</a>
 </form>
 {% endblock %}

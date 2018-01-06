@@ -37,8 +37,11 @@ if not CHECK_CALENDAR_PERM_FUNC:
         else:
             try:
                 models.Calendar.objects.get_calendar_for_object(user, 'owner')
-                print(True)
-                return True
+                if calendar == models.Calendar.objects.get_calendar_for_object(user, 'owner') or (user == user.departament.jefe and user.departament.calendario == calendar):
+                    print(True)
+                    return True
+                else:
+                    return False
             except models.Calendar.DoesNotExist:
                 print('pedo')
                 print(False)
